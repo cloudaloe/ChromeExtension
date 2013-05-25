@@ -70,6 +70,7 @@ function injectedCode()
 						for (var i=0; i<socialMediaPresence.count; i++) {
 							log(socialMediaPresence.values[i].text) 
 							// TBD: stick into page's html with minorly cool styling
+							//      and logic for picking which social site is relevant
 						}
 					}
 				}
