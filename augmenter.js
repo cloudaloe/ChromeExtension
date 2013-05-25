@@ -1,16 +1,6 @@
 
 function log(text) {
-	console.log("Chrome Augmenter Extension: " + text);
-}
-
-// 
-// Dynamically load a remote javascript file
-//
-function loadjs(filename){
-  var elem=document.createElement('script')
-  elem.setAttribute("type","text/javascript")
-  elem.setAttribute("src", filename)
-  document.getElementsByTagName("head")[0].appendChild(elem)  
+	console.log(">> Chrome Augmenter Extension: " + text);
 }
 
 //
@@ -20,7 +10,7 @@ function loadjs(filename){
 function injectedCode()
 {
 	function log(text) {
-		console.log("Chrome Augmenter Extension injected script: " + text);
+		console.log(">> Chrome Augmenter Extension injected script: " + text);
 	}
 
 	function getTopic() {
@@ -60,17 +50,6 @@ function injectedCode()
 }
 
 //
-// Load Google's basic javascript API.
-// Specific Google API needs to be called after this passed.
-//
-function loadGoogleApi(){
-// TODO: Check for and handle api load error. Not clear if Google cleanly allows that.
-	log("about to load Google API");
-	loadjs("https://apis.google.com/js/client.js?onload=onLoad");
-	log("loaded Google basic javascript API");
-}
-
-//
 // Inject javascript code into global context
 //
 function injectJavascript(func) {
@@ -83,6 +62,27 @@ function injectJavascript(func) {
   var elem = document.createElement('script');
   elem.textContent = codeToPush;
   document.getElementsByTagName("head")[0].appendChild(elem);  
+}
+
+// 
+// Dynamically load a remote javascript file
+//
+function loadjs(filename){
+  var elem=document.createElement('script')
+  elem.setAttribute("type","text/javascript")
+  elem.setAttribute("src", filename)
+  document.getElementsByTagName("head")[0].appendChild(elem)  
+}
+
+//
+// Load Google's basic javascript API.
+// Specific Google API needs to be called after this passed.
+//
+function loadGoogleApi(){
+// TODO: Check for and handle api load error. Not clear if Google cleanly allows that.
+	log("about to load Google API");
+	loadjs("https://apis.google.com/js/client.js?onload=onLoad");
+	log("loaded Google basic javascript API");
 }
 
 injectJavascript(injectedCode);
