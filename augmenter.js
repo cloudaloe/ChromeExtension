@@ -2,7 +2,7 @@
 // TODO: Push the results into the UI
 // TODO: Add performance tracking into some metrics library
 // TODO: Integrate into server-side API errors tracking and alerting mechanism
-// TODO: Check impact on page load time
+// TODO: Confirm impact on page load time
 // TODO: Server-side porting and cross-browser testing and adjustment
 
 function log(text) {
