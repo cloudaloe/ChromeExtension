@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "page augmenter development extension",
+  "description": "This extension augments QuickiWiki pages",
+  "version": "0.1",
+
+  "permissions": [
+    "tabs", "http://www.quickiwiki.com/"
+  ],
+  
+  "content_scripts": [
+	{
+		"matches": ["http://www.quickiwiki.com/*"],	
+		"js": ["augmenter.js"]
+	}
+  ]
+}
