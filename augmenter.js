@@ -2,7 +2,7 @@
 // TODO: Add performance tracking into some metrics library
 // TODO: Integrate into server-side API errors tracking and alerting mechanism
 // TODO: Check impact on page load time
-// TODO: Server-side porting
+// TODO: Server-side porting and cross-browser testing and adjustment
 
 function log(text) {
 	console.log(">> Chrome Augmenter Extension: " + text);
