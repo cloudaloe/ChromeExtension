@@ -79,22 +79,6 @@ function injectedCode()
 				log("Failed receiving response from Google API for finding equivalent Freebase topic. This might be a network error (api error details: " + err + ")");
 			});
 		}
-	
-/*			//var query = [{'id':topic}];
-			var query = [{'type':'/common/topic','id':topic}];
-			//var query = [{'type':'/music/album','id':null,'name':null}];
-			gapi.client.load('freebase', 'v1', function(){
-				var request = gapi.client.freebase.mqlread({'query': JSON.stringify(query)});
-				request.execute(function(response) {
-					console.log(response);
-//					var results = JSON.parse(response)['result'];
-//                        $.each(results, function(i, topic) {
-//                          log(topic['name']);
-//                    });					
-				});
-			});
-		}
-*/		
 	}		
 	
 
