@@ -1,4 +1,5 @@
 // TODO: Switch to OAuth and cache the Google API loading
+// TODO: Push the results into the UI
 // TODO: Add performance tracking into some metrics library
 // TODO: Integrate into server-side API errors tracking and alerting mechanism
 // TODO: Check impact on page load time
@@ -67,14 +68,14 @@ function injectedCode()
 					officialWebsiteText = result.property['/common/topic/official_website'];
 					if (typeof officialWebsiteText !== 'undefined') {
 						log("Determined website: " + officialWebsiteText.values[0].text);
-						// TBD: stick into page's html with minorly cool styling
+						// TBD: stick into page's html with aesthetic styling
 					}
 					
 					socialMediaPresence = result.property['/common/topic/social_media_presence'];
 					if (typeof socialMediaPresence !== 'undefined') {
 						for (var i=0; i<socialMediaPresence.count; i++) {
 							log(socialMediaPresence.values[i].text) 
-							// TBD: stick into page's html with minorly cool styling
+							// TBD: stick into page's html with aesthetic styling
 							//      and logic for picking which social site is relevant
 						}
 					}
