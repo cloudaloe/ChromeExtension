@@ -29,12 +29,74 @@ function injectedCode()
 		}
 	}
 
-	function Go() {
+	function AddFromFreebase() {
+	
+		//
+		// The conversion from Wikipedia entry to Freebase topic name
+		//
+		function topicHeuristicConversion_wikipediaToFreebase(topic)
+		{
+			// TODO: remove /en/ hack
+			var str = '/en/' + topic; 
+			var topic_id = str.replace(/\s+/g,'_').toLowerCase(); // replaces all spaces with _ and turns all lowercase
+			return topic_id	
+		}
+	
 		if (topic = getTopic())
 		{
+			var result;
+			log("Fetching data from freebase");
+			var topic_id = topicHeuristicConversion_wikipediaToFreebase(topic)
+			log(topic_id);
+			var service_url = 'https://www.googleapis.com/freebase/v1/topic';
 			
+			$.getJSON(service_url + topic_id + '?callback=?') // the Ajax call to Google API
+			.done(function(result) {
+				//log(result.id);
+				if (result.error)
+				{
+					log("Could not find equivalent Freebase topic (Google API response: " + JSON.stringify(result.error) + ")");
+				}
+				else
+				{
+					officialWebsiteText = result.property['/common/topic/official_website'];
+					if (typeof officialWebsiteText !== 'undefined') {
+						log("Determined website: " + officialWebsiteText.values[0].text);
+						// TBD: stick into page's html with minorly cool styling
+					}
+					
+					socialMediaPresence = result.property['/common/topic/social_media_presence'];
+					if (typeof socialMediaPresence !== 'undefined') {
+						for (var i=0; i<socialMediaPresence.count; i++) {
+							log(socialMediaPresence.values[i].text) 
+							// TBD: stick into page's html with minorly cool styling
+						}
+					}
+				}
+			})
+			.fail(function( jqxhr, textStatus, error ) {
+				var err = textStatus + ', ' + JSON.stringify(error);
+				log("Failed receiving response from Google API for finding equivalent Freebase topic. This might be a network error (api error details: " + err + ")");
+			});
 		}
-	}
+	
+/*			//var query = [{'id':topic}];
+			var query = [{'type':'/common/topic','id':topic}];
+			//var query = [{'type':'/music/album','id':null,'name':null}];
+			gapi.client.load('freebase', 'v1', function(){
+				var request = gapi.client.freebase.mqlread({'query': JSON.stringify(query)});
+				request.execute(function(response) {
+					console.log(response);
+//					var results = JSON.parse(response)['result'];
+//                        $.each(results, function(i, topic) {
+//                          log(topic['name']);
+//                    });					
+				});
+			});
+		}
+*/		
+	}		
+	
 
 	//
 	// Callback for Google's javascript API having been loaded
@@ -44,7 +106,7 @@ function injectedCode()
 		gapi.client.setApiKey('AIzaSyDVH3vdQ0R7dv3uiOwMqF0vyHCpRfi6Tnw');
 		gapi.client.load('freebase', 'v1', function(){ 
 			log("Google freebase API loaded"); 
-			Go();	
+			AddFromFreebase();	
 		});
 	}
 }
