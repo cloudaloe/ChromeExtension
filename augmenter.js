@@ -1,3 +1,6 @@
+// TODO: Switch to OAuth and cache the Google API loading
+// TODO: Add performance tracking into some metrics library
+// TODO: Integrate into server-side API errors tracking and alerting mechanism
 
 function log(text) {
 	console.log(">> Chrome Augmenter Extension: " + text);
